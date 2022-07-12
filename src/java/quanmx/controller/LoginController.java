@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import quanmx.listener.MyAppListener;
 import quanmx.registration.RegistrationDAO;
 import quanmx.registration.RegistrationDTO;
+import quanmx.utils.MyApplicationConstants;
 
 /**
  *
@@ -19,19 +21,18 @@ import quanmx.registration.RegistrationDTO;
  */
 public class LoginController extends HttpServlet {
 
-    private final String INVALID_PAGE = "invalidPage";
 //it was commented after completing StartAppController. Website needs to have "welcome, [userName]"
 //so I change to dynamic page
 //private final String SEARCH_PAGE = "search.html";
-
-    private final String SEARCH_PAGE = "searchPage";
-
+//    private final String INVALID_PAGE = "invalidPage";
+//    private final String SEARCH_PAGE = "searchPage";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         ServletContext context = request.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
-        String url = siteMaps.getProperty(INVALID_PAGE);
+//        String url = siteMaps.getProperty(INVALID_PAGE);
+        String url = MyApplicationConstants.LoginFeatures.INVALID_PAGE;
         String username = request.getParameter("txtUsername");
         String password = request.getParameter("txtPassword");
 
@@ -41,25 +42,31 @@ public class LoginController extends HttpServlet {
             RegistrationDAO dao = new RegistrationDAO();
             RegistrationDTO result = dao.checkLogin(username, password);
             if (result != null) {
-                url = siteMaps.getProperty(SEARCH_PAGE);
+//                url = siteMaps.getProperty(SEARCH_PAGE);
+                url = MyApplicationConstants.LoginFeatures.SEARCH_PAGE;
+
 //                Cookie cookie = new Cookie(username, password);
 //                cookie.setMaxAge(60 * 2);
 //                response.addCookie(cookie);
-
                 //Create session
                 HttpSession session = request.getSession(true);
-                session.setMaxInactiveInterval(60 / 2);
+                session.setMaxInactiveInterval(60);
                 session.setAttribute("USER", result);
 
             } //end if user is authenticated
             //end if user clicks login
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("LoginController " + ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("LoginController " + ex.getMessage());
+
         } catch (NamingException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("LoginController " + ex.getMessage());
+
         } finally {
             //use response.sendRedirect to store cookies in client side before come to the website again
 //            RequestDispatcher rd = request.getRequestDispatcher(url);

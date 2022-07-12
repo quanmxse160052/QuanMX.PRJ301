@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import quanmx.registration.RegistrationCreateError;
 import quanmx.registration.RegistrationDAO;
 import quanmx.registration.RegistrationDTO;
+import quanmx.utils.MyApplicationConstants;
 
 /**
  *
@@ -23,9 +24,8 @@ import quanmx.registration.RegistrationDTO;
  */
 public class CreateNewAccountController extends HttpServlet {
 
-    private final String LOGIN_PAGE = "";
-    private final String ERROR_PAGE = "createAccountJspPage";
-
+//    private final String LOGIN_PAGE = "";
+//    private final String ERROR_PAGE = "createAccountJspPage";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -37,7 +37,9 @@ public class CreateNewAccountController extends HttpServlet {
         boolean foundErr = false;
         ServletContext context = request.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
-        String url = siteMaps.getProperty(ERROR_PAGE);
+//        String url = siteMaps.getProperty(ERROR_PAGE);
+        String url = siteMaps.getProperty(MyApplicationConstants.CreateNewAccountFeatures.ERROR_PAGE);
+
         try {
             //1. check all user's constraints
             if (username.trim().length() < 6 || username.trim().length() > 12) {
@@ -64,7 +66,9 @@ public class CreateNewAccountController extends HttpServlet {
                 RegistrationDAO dao = new RegistrationDAO();
                 boolean result = dao.createNewAccount(dto);
                 if (result) {
-                    url = siteMaps.getProperty(LOGIN_PAGE);
+//                    url = siteMaps.getProperty(LOGIN_PAGE);
+                    url = siteMaps.getProperty(MyApplicationConstants.CreateNewAccountFeatures.LOGIN_PAGE);
+
                 }
             }
 

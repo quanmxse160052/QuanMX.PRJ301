@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import quanmx.registration.RegistrationDAO;
+import quanmx.utils.MyApplicationConstants;
 
 /**
  *
@@ -19,8 +20,7 @@ import quanmx.registration.RegistrationDAO;
  */
 public class UpdateController extends HttpServlet {
 
-    private final String ERROR_PAGE = "errorPage";
-
+//    private final String ERROR_PAGE = "errorPage";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("txtUsername");
@@ -29,23 +29,30 @@ public class UpdateController extends HttpServlet {
         String searchValue = request.getParameter("lastSearchValue");
         ServletContext context = request.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
-        String url = siteMaps.getProperty(ERROR_PAGE);
+//        String url = siteMaps.getProperty(ERROR_PAGE);
+        String url = MyApplicationConstants.UpdateAccountFeatures.ERROR_PAGE;
+
         try {
 
             //1. call DAO
             RegistrationDAO dao = new RegistrationDAO();
             boolean result = dao.updateUserInfor(username, newPassword, newRole);
             if (result) {
-                url = "DispatchServlet?btAction=Search"
+                url = MyApplicationConstants.DispatchFeatures.SEARCH_LASTNAME_CONTROLLER + "?btAction=Search"
                         + "&txtSearchValue="
                         + searchValue;
             }
         } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("UpdateController " + ex.getMessage());
         } catch (SQLException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("UpdateController " + ex.getMessage());
+
         } catch (NamingException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("UpdateController " + ex.getMessage());
+
         } finally {
             response.sendRedirect(url);
         }

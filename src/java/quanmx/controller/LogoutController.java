@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import quanmx.utils.MyApplicationConstants;
 
 /**
  *
@@ -16,23 +17,26 @@ import javax.servlet.http.HttpSession;
  */
 public class LogoutController extends HttpServlet {
 
-    private final String ERROR_PAGE = "errorPage";
-    private final String LOGIN_PAGE = "";
-
+//    private final String ERROR_PAGE = "errorPage";
+//    private final String LOGIN_PAGE = "";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ServletContext context = request.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
-        String url = siteMaps.getProperty(ERROR_PAGE);
+//        String url = siteMaps.getProperty(ERROR_PAGE);
+        String url = MyApplicationConstants.LogOutFeatures.ERROR_PAGE;
+        
         try {
             HttpSession session = request.getSession(false);
             if (session != null) {
                 session.invalidate();
-                url = siteMaps.getProperty(LOGIN_PAGE);
+//                url = siteMaps.getProperty(LOGIN_PAGE);
+                url = MyApplicationConstants.LogOutFeatures.LOGIN_PAGE;
             }
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
+//            response.sendRedirect(url);
         }
     }
 

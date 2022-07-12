@@ -83,7 +83,7 @@
 
         <c:set var="products" value="${requestScope.PRODUCTS}"/>
         <c:if test="${ not empty products}">
-            <form action="DispatchServlet" method="POST">
+            <form action="removeCartProduct" method="POST">
                 <table border="1">
                     <thead>
                         <tr>
@@ -113,7 +113,7 @@
 
 
                     <td colspan="6">
-                        <c:url var="addMoreProduct" value="DispatchServlet">
+                        <c:url var="addMoreProduct" value="shoppingPageAction">
                             <c:param name="btAction" value="shopping"/>
                         </c:url>
                         <a href="${addMoreProduct}">Add more product!</a>
@@ -123,13 +123,15 @@
                     </td>
                     </tbody>
                 </table>
-                <input type="submit" value="Check out" name="btAction" />
             </form>    
+            <form action="checkOutAction" method="POST">
+                <input type="submit" value="Check out" name="btAction" />
+            </form>
         </c:if>
 
         <c:if test="${empty products}">
             <h3>You do not have any product in cart!</h3>
-            <c:url var="addMoreProduct" value="DispatchServlet">
+            <c:url var="addMoreProduct" value="shoppingPageAction">
                 <c:param name="btAction" value="shopping"/>
             </c:url>
             <a href="${addMoreProduct}">Shopping now!</a>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import quanmx.utils.MyApplicationConstants;
 
 /**
  *
@@ -16,15 +17,16 @@ import javax.servlet.http.HttpSession;
  */
 public class StartAppController extends HttpServlet {
 
-    private final String LOGIN_PAGE = "";
-
-    private final String SEARCH_PAGE = "searchPage";
-
+//    private final String LOGIN_PAGE = "";
+//
+//    private final String SEARCH_PAGE = "searchPage";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ServletContext context = request.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
-        String url = siteMaps.getProperty(LOGIN_PAGE);
+//        String url = siteMaps.getProperty(LOGIN_PAGE);
+        String url = MyApplicationConstants.StartAppFeatures.LOGIN_PAGE;
+
         try {
 
 //            //1. check cookies has been existed (get cookies)
@@ -46,7 +48,9 @@ public class StartAppController extends HttpServlet {
             HttpSession session = request.getSession(false);
             if (session != null) {
                 if (session.getAttribute("USER") != null) {
-                    url = siteMaps.getProperty(SEARCH_PAGE);
+//                    url = siteMaps.getProperty(SEARCH_PAGE);
+                    url = MyApplicationConstants.StartAppFeatures.SEARCH_PAGE;
+
                 }
             }
 //        } catch (SQLException ex) {

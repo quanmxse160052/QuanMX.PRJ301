@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import quanmx.registration.RegistrationDAO;
+import quanmx.utils.MyApplicationConstants;
 
 /**
  *
@@ -17,17 +18,7 @@ import quanmx.registration.RegistrationDAO;
  */
 public class DeleteController extends HttpServlet {
 
-    private final String ERROR_PAGE = "errorPage";
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+//    private final String ERROR_PAGE = "errorPage";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -36,7 +27,9 @@ public class DeleteController extends HttpServlet {
         ServletContext context = request.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
 
-        String urlRewriting = siteMaps.getProperty(ERROR_PAGE);
+//        String urlRewriting = siteMaps.getProperty(ERROR_PAGE);
+        String urlRewriting = MyApplicationConstants.DeleteAccountFeatures.ERROR_PAGE;
+
         try {
             //1. call DAO
             RegistrationDAO dao = new RegistrationDAO();
@@ -44,16 +37,20 @@ public class DeleteController extends HttpServlet {
             //2. process result
             if (result) {
                 //call Search function again by using url rewriting
-                urlRewriting = "DispatchServlet"
+                urlRewriting = MyApplicationConstants.DispatchFeatures.SEARCH_LASTNAME_CONTROLLER
                         + "?btAction=Search"
                         + "&txtSearchValue=" + searchValue;
             }//delete is sucessful
         } catch (SQLException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("DeleteController " + ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("DeleteController " + ex.getMessage());
+
         } catch (NamingException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("DeleteController " + ex.getMessage());
 
         } finally {
             response.sendRedirect(urlRewriting);

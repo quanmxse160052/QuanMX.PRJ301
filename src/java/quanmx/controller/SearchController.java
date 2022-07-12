@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import quanmx.registration.RegistrationDAO;
 import quanmx.registration.RegistrationDTO;
+import quanmx.utils.MyApplicationConstants;
 
 public class SearchController extends HttpServlet {
 
-    private final String SEARCH_PAGE = "searchHtmlPage";
-    private final String SEARCH_RESULT_PAGE = "searchPage";
-
+//    private final String SEARCH_PAGE = "searchHtmlPage";
+//    private final String SEARCH_RESULT_PAGE = "searchPage";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -27,7 +27,9 @@ public class SearchController extends HttpServlet {
 // modify when create Welcome, [username]
         ServletContext context = request.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
-        String url = siteMaps.getProperty(SEARCH_RESULT_PAGE);
+//        String url = siteMaps.getProperty(SEARCH_PAGE);
+        String url = siteMaps.getProperty(MyApplicationConstants.SearchAccountFeatures.SEARCH_PAGE);
+
         String searchValue = request.getParameter("txtSearchValue");
         try {
             if (!searchValue.trim().isEmpty()) {
@@ -37,14 +39,20 @@ public class SearchController extends HttpServlet {
                 // 2. process result
                 List<RegistrationDTO> result = dao.getAccounts();
                 request.setAttribute("SEARCH_RESULT", result);
-                url = siteMaps.getProperty(SEARCH_RESULT_PAGE);
+//                url = siteMaps.getProperty(SEARCH_RESULT_PAGE);
+                url = siteMaps.getProperty(MyApplicationConstants.SearchAccountFeatures.SEARCH_RESULT_PAGE);
+
             } //search value has existed
         } catch (SQLException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("SearchController " + ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("SearchController " + ex.getMessage());
+
         } catch (NamingException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("SearchController " + ex.getMessage());
 
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);

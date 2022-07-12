@@ -9,23 +9,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+//change to filter
+//@WebServlet(name = "DispatchServlet", urlPatterns = {"/DispatchServlet"})
 
-@WebServlet(name = "DispatchServlet", urlPatterns = {"/DispatchServlet"})
 public class DispatchServlet extends HttpServlet {
 
     private final String LOGIN_PAGE = "";
-    private final String LOGIN_CONTROLLER = "loginController";
-    private final String SEARCH_LASTNAME_CONTROLLER = "searchController";
-    private final String DELETE_CONTROLLER = "deleteController";
-    private final String UPDATE_CONTROLLER = "updateController";
-    private final String START_APP_CONTROLLER = "startAppController";
-    private final String LOGOUT_CONTROLLER = "logoutController";
-    private final String ADD_TO_CART_CONTROLLER = "addToCartController";
-    private final String SHOPPING_PAGE_CONTROLLER = "shoppingPageController";
-    private final String VIEW_CART_PAGE_CONTROLLER = "viewCartController";
-    private final String REMOVE_PRODUCT_FROM_CART = "removeProductFromCart";
-    private final String CHECK_OUT_CONTROLLER = "checkOutController";
-    private final String CREATE_NEW_ACCOUNT_CONTROLLER = "CreateNewAccountController";
+    private final String LOGIN_CONTROLLER = "loginAction";
+    private final String SEARCH_LASTNAME_CONTROLLER = "searchAction";
+    private final String DELETE_CONTROLLER = "deleteAction";
+    private final String UPDATE_CONTROLLER = "updateAction";
+    private final String START_APP_CONTROLLER = "startAppAction";
+    private final String LOGOUT_CONTROLLER = "logoutAction";
+    private final String ADD_TO_CART_CONTROLLER = "addToCartAction";
+    private final String SHOPPING_PAGE_CONTROLLER = "shoppingPageAction";
+    private final String VIEW_CART_PAGE_CONTROLLER = "viewCartAction";
+    private final String REMOVE_PRODUCT_FROM_CART = "removeCartProduct";
+    private final String CHECK_OUT_CONTROLLER = "checkOutAction";
+    private final String CREATE_NEW_ACCOUNT_CONTROLLER = "createNewAccountAction";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

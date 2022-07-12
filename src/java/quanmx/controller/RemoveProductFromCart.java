@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import quanmx.cart.CartObject;
+import quanmx.utils.MyApplicationConstants;
 
 /**
  *
@@ -18,13 +19,14 @@ import quanmx.cart.CartObject;
  */
 public class RemoveProductFromCart extends HttpServlet {
 
-    private String VIEW_CART_PAGE = "viewCartPage";
-
+//    private String VIEW_CART_PAGE = "viewCartPage";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ServletContext context = request.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
-        String url = siteMaps.getProperty(VIEW_CART_PAGE);
+//        String url = siteMaps.getProperty(VIEW_CART_PAGE);
+        String url = MyApplicationConstants.RemoveCartProductFeatures.VIEW_CART_PAGE;
+        
         try {
             //1. get session
             HttpSession session = request.getSession(false);
@@ -45,14 +47,15 @@ public class RemoveProductFromCart extends HttpServlet {
                             for (String product : removedProduct) {
                                 cart.removeFromCart(Integer.parseInt(product));
                             }
-
+                            
                             session.setAttribute("CART", cart);
                         }
                     }
                 }
             }
         } catch (NumberFormatException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("RemoveProductFromCart " + ex.getMessage());
         } finally {
             //9. return to cart page after remove product
             response.sendRedirect(url);

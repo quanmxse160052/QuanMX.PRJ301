@@ -20,6 +20,7 @@ import quanmx.cart.CartObject;
 import quanmx.cart.CartProduct;
 import quanmx.product.ProductDAO;
 import quanmx.product.ProductDTO;
+import quanmx.utils.MyApplicationConstants;
 
 /**
  *
@@ -27,13 +28,14 @@ import quanmx.product.ProductDTO;
  */
 public class ViewCartController extends HttpServlet {
 
-    private String CART_PAGE = "cartPage";
-
+//    private String CART_PAGE = "cartPage";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ServletContext context = request.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
-        String url = siteMaps.getProperty(CART_PAGE);
+//        String url = siteMaps.getProperty(CART_PAGE);
+        String url = siteMaps.getProperty(MyApplicationConstants.ViewCartFearures.CART_PAGE);
+
         try {
             HttpSession session = request.getSession(false);
             // 1. check session has existed
@@ -57,11 +59,16 @@ public class ViewCartController extends HttpServlet {
                 }
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("ViewCartController " + ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("ViewCartController " + ex.getMessage());
+
         } catch (NamingException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("ViewCartController " + ex.getMessage());
+
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

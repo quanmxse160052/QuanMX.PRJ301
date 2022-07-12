@@ -15,12 +15,12 @@
     </head>
     <body>
         <h1>Create New Account</h1>
-        <a href="login.html">Login Page</a> 
-        <a href="DispatchServlet?btAction=shopping">Shopping</a>
+        <a href="">Login Page</a> 
+        <a href="shoppingPageAction">Shopping</a>
         <br/>
 
         <c:set var="errors" value="${requestScope.CREATE_ERROR}"/>
-        <form action="DispatchServlet" method="POST" >
+        <form action="createNewAccountAction" method="POST" >
             Username* <input type="text" name="txtUsername" value="${param.txtUsername}" /> e.g 6-12 chars <br/>
             <c:if test="${not empty errors.usernameLengthErr}">
                 <font color="red">

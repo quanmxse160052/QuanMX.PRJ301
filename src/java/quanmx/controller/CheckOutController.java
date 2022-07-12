@@ -18,6 +18,7 @@ import quanmx.cart.CartProduct;
 import quanmx.order.OrderDAO;
 import quanmx.orderdetail.OrderDetailDAO;
 import quanmx.product.ProductDAO;
+import quanmx.utils.MyApplicationConstants;
 
 /**
  *
@@ -25,15 +26,15 @@ import quanmx.product.ProductDAO;
  */
 public class CheckOutController extends HttpServlet {
 
-    private String SHOPPING_PAGE = "shoppingPage";
-    private String VIEW_CART_PAGE = "viewCartPage";
-
+//    private String SHOPPING_PAGE = "shoppingPage";
+//    private String VIEW_CART_PAGE = "viewCartPage";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ServletContext context = request.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
+//        String url = siteMaps.getProperty(VIEW_CART_PAGE);
+        String url = MyApplicationConstants.CheckOutFeatures.VIEW_CART_PAGE;
 
-        String url = siteMaps.getProperty(VIEW_CART_PAGE);
         try {
             //1. get session
             HttpSession session = request.getSession(false);
@@ -64,19 +65,24 @@ public class CheckOutController extends HttpServlet {
                             int insertedRow = orderDetailDao.insertIntoOrderDetail(productList, lastId);
                             if (insertedRow == productList.size()) {
                                 session.removeAttribute("CART");
-                                url = siteMaps.getProperty(SHOPPING_PAGE);
+//                                url = siteMaps.getProperty(SHOPPING_PAGE);
+                                url = MyApplicationConstants.CheckOutFeatures.SHOPPING_PAGE;
+
                             }
                         }
                     }
                 }
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("CheckOutController " + ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("CheckOutController " + ex.getMessage());
 
         } catch (NamingException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("CheckOutController " + ex.getMessage());
 
         } finally {
             response.sendRedirect(url);

@@ -69,7 +69,7 @@
 
         <h1> QUAN DEP TRAI STORE</h1>
 
-        <c:url var="viewCart" value="DispatchServlet">
+        <c:url var="viewCart" value="viewCartAction">
             <c:param name="btAction" value="viewCart"/>
         </c:url>
         <a href="${viewCart}">View cart</a>
@@ -87,7 +87,7 @@
                 </thead>
                 <tbody>
                     <c:forEach var="dto" items="${products}" >
-                    <form action="DispatchServlet" method="POST">
+                    <form action="addToCartAction" method="POST">
 
                         <tr>
 
@@ -100,9 +100,6 @@
                             <td> <input type="submit" value="Add to cart" name="btAction"/></td>
                         </tr>
                     </form>        
-
-
-
                 </c:forEach>
 
             </tbody>

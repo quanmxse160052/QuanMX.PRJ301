@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import quanmx.cart.CartObject;
+import quanmx.utils.MyApplicationConstants;
 
 /**
  *
@@ -16,14 +17,15 @@ import quanmx.cart.CartObject;
  */
 public class AddToCartController extends HttpServlet {
 
-    private String ERROR_PAGE = "errorPage";
-    private String SHOPPING_PAGE = "shoppingPage";
-
+//    private String ERROR_PAGE = "errorPage";
+//    private String SHOPPING_PAGE = "shoppingPage";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ServletContext context = request.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
-        String url = siteMaps.getProperty(ERROR_PAGE);
+//        String url = siteMaps.getProperty(ERROR_PAGE);
+        String url = MyApplicationConstants.AddToCartFeatures.ERROR_PAGE;
+        
         try {
             HttpSession session = request.getSession(true);
             int sku = Integer.parseInt(request.getParameter("productID"));
@@ -37,9 +39,12 @@ public class AddToCartController extends HttpServlet {
             cart.addToCart(sku);
             //4. store cart to session again
             session.setAttribute("CART", cart);
-            url = siteMaps.getProperty(SHOPPING_PAGE);
+//            url = siteMaps.getProperty(SHOPPING_PAGE);
+            url = MyApplicationConstants.AddToCartFeatures.SHOPPING_PAGE;
+            
         } catch (NumberFormatException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log("AddToCartController " + ex.getMessage());
         } finally {
             response.sendRedirect(url);
         }

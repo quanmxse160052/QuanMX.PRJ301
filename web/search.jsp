@@ -138,15 +138,15 @@
 
         </font>
         <!--logout-->
-        <form action="DispatchServlet" method="POST">
+        <form action="logoutAction" method="POST">
             <input type="submit" name="btAction" value="Logout"/>
         </form>
 
 
         <h1>Search page</h1>
-        <a href="DispatchServlet?btAction=shopping">Shopping</a>
+        <a href="shoppingPageAction">Shopping</a>
 
-        <form action="DispatchServlet">
+        <form action="searchAction" method="POST">
 
             Search value <input type="text" name="txtSearchValue" value="${param.txtSearchValue}" />
             <input type="submit" value="Search" name="btAction"/>
@@ -168,7 +168,7 @@
                     </thead>
                     <tbody>
                         <c:forEach var="dto" items="${searchResult}" varStatus="status">
-                        <form action="DispatchServlet" method="POST">
+                        <form action="updateAction" method="POST">
                             <tr>
                                 <td>
                                     ${status.count}
@@ -192,7 +192,7 @@
                                            />
                                 </td>
                                 <td>
-                                    <c:url var="deleteLink" value="DispatchServlet">
+                                    <c:url var="deleteLink" value="deleteAction">
                                         <c:param name="btAction" value="delete"/>
                                         <c:param name="pk" value="${dto.username}"/>
                                         <c:param name="lastSearchValue" value="${param.txtSearchValue}"/>
@@ -202,9 +202,10 @@
                                 <td>
                                     <input type="hidden" name="lastSearchValue" value="${param.txtSearchValue}" />
                                     <input type="submit" value="Update" name="btAction" />
-                                </td>
+                                </td>      
                             </tr>
                         </form>
+
                     </c:forEach>
                 </tbody>
             </table>        
