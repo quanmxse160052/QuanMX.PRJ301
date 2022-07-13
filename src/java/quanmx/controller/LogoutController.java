@@ -25,7 +25,7 @@ public class LogoutController extends HttpServlet {
         Properties siteMaps = (Properties) context.getAttribute("SITEMAPS");
 //        String url = siteMaps.getProperty(ERROR_PAGE);
         String url = MyApplicationConstants.LogOutFeatures.ERROR_PAGE;
-        
+
         try {
             HttpSession session = request.getSession(false);
             if (session != null) {
@@ -34,9 +34,9 @@ public class LogoutController extends HttpServlet {
                 url = MyApplicationConstants.LogOutFeatures.LOGIN_PAGE;
             }
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
-//            response.sendRedirect(url);
+//            RequestDispatcher rd = request.getRequestDispatcher(url);
+//            rd.forward(request, response);
+            response.sendRedirect(url);
         }
     }
 

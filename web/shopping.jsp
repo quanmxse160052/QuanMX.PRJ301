@@ -8,12 +8,12 @@
 <%@page import="java.util.List"%>
 <%@page import="quanmx.product.ProductDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page session="false"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Shopping Page</title>
+
     </head>
     <body>
         <%--<h1> QUAN DEP TRAI STORE</h1>
@@ -68,11 +68,22 @@
         --%>
 
         <h1> QUAN DEP TRAI STORE</h1>
+        <c:if test="${not empty sessionScope.USER}">
+            <form action="logoutAction" method="POST">
+                <input type="submit" name="btAction" value="Logout"/>
+            </form>
+            <a href="searchPage">Search Page</a>
+        </c:if>
 
         <c:url var="viewCart" value="viewCartAction">
             <c:param name="btAction" value="viewCart"/>
         </c:url>
         <a href="${viewCart}">View cart</a>
+
+
+        <c:if test="${empty sessionScope.USER}">
+            <a href="./">Login</a>
+        </c:if>
         <c:set var="products" value="${requestScope.PRODUCTS}"/>
         <c:if test="${not empty products}">
             <table border="1">

@@ -15,6 +15,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Your cart</title>
+
     </head>
     <body>
         <%-- <h1>Your cart</h1>
@@ -79,8 +80,18 @@
         %>
 
         --%>
-        <h1>Your cart</h1>
 
+        <h1>Your cart</h1>
+        <c:if test="${not empty sessionScope.USER}">
+            <form action="logoutAction" method="POST">
+                <input type="submit" name="btAction" value="Logout"/>
+            </form>
+            <a href="searchPage">Search Page</a>
+        </c:if>
+
+        <c:if test="${empty sessionScope.USER}">
+            <a href="./">Login</a>
+        </c:if>
         <c:set var="products" value="${requestScope.PRODUCTS}"/>
         <c:if test="${ not empty products}">
             <form action="removeCartProduct" method="POST">

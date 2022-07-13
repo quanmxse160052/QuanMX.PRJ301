@@ -3,5 +3,5 @@
     <Resource name="DataSourceAhihi" type="javax.sql.DataSource" auth="Container" 
               driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
               url="jdbc:sqlserver://localhost:1433;databaseName=PRJ301;instanceName=QUANMXSQLSV" 
-              username="sa" password="123456"/>
+              username="sa" password="12345"/>
 </Context>
